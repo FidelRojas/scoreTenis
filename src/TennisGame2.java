@@ -14,23 +14,34 @@ public class TennisGame2 implements TennisGame
 
     public String getScore(){
         String score = "";
-        score = tie(score);
-        score = deuce(score);
-        score = normal(score);
-        score = advantage(score);
+		if (isNormal())
+			score = getLiteral(player1Points) + "-" + getLiteral(palyer2points);
+      
+		if (isTie())
+			score =getLiteral(player1Points)+ "-All";
+		
+		if (isDuce())
+			score = "Deuce";
+        
+		if (isAdvantage( player1Points,  palyer2points))
+            score = "Advantage player1";
+        
+        if (isAdvantage( palyer2points,  player1Points))
+            score = "Advantage player2";
         score = win(score);
         return score;
     }
+
+	private boolean isDuce() {
+		return player1Points==palyer2points && player1Points>=3;
+	}
+
+	private boolean isNormal() {
+		return player1Points !=palyer2points;
+	}
     
 
-	private String normal(String score) {
-		
-		if (player1Points !=palyer2points)
-        {
-            score = getLiteral(player1Points) + "-" + getLiteral(palyer2points);
-        }
-		return score;
-	}
+
 
 	private String getLiteral(int playerPoints) {
 		String result="";
@@ -46,18 +57,9 @@ public class TennisGame2 implements TennisGame
 		return result;
 	}
 
-	private String tie(String score) {
-		if (player1Points == palyer2points && player1Points < 4)
-        {
-            if (player1Points==0)
-                score = "Love";
-            if (player1Points==1)
-                score = "Fifteen";
-            if (player1Points==2)
-                score = "Thirty";
-            score += "-All";
-        }
-		return score;
+
+	private boolean isTie() {
+		return player1Points == palyer2points && player1Points < 4;
 	}
 
 	private String win(String score) {
@@ -72,24 +74,13 @@ public class TennisGame2 implements TennisGame
 		return score;
 	}
 
-	private String advantage(String score) {
-		if (player1Points > palyer2points && palyer2points >= 3)
-        {
-            score = "Advantage player1";
-        }
-        
-        if (palyer2points > player1Points && player1Points >= 3)
-        {
-            score = "Advantage player2";
-        }
-		return score;
+
+
+	private boolean isAdvantage(int firstPlayerPoints, int secondPlayerPoints) {
+		return firstPlayerPoints > secondPlayerPoints && secondPlayerPoints >= 3;
 	}
 
-	private String deuce(String score) {
-		if (player1Points==palyer2points && player1Points>=3)
-            score = "Deuce";
-		return score;
-	}
+	
     
     public void SetP1Score(int number){
         
