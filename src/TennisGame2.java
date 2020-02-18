@@ -18,90 +18,36 @@ public class TennisGame2 implements TennisGame
         String score = "";
         score = tie(score);
         score = deuce(score);
-        
         score = normal(score);
-        score = normal1(score);
-        
-        score = normal2(score);
-        score = normal3(score);
-        
         score = advantage(score);
-        
         score = win(score);
         return score;
     }
-
-	private String normal3(String score) {
-		if (P2point>P1point && P2point < 4)
-        {
-            if (P2point==2)
-                P2res="Thirty";
-            if (P2point==3)
-                P2res="Forty";
-            if (P1point==1)
-                P1res="Fifteen";
-            if (P1point==2)
-                P1res="Thirty";
-            score = P1res + "-" + P2res;
-        }
-		return score;
-	}
-
-	private String normal2(String score) {
-		if (P1point>P2point && P1point < 4)
-        {
-            if (P1point==2)
-                P1res="Thirty";
-            if (P1point==3)
-                P1res="Forty";
-            if (P2point==1)
-                P2res="Fifteen";
-            if (P2point==2)
-                P2res="Thirty";
-            score = P1res + "-" + P2res;
-        }
-		return score;
-	}
-
-	private String normal1(String score) {
-		if (P2point > 0 && P1point==0)
-        {
-            if (P2point==1)
-                P2res = "Fifteen";
-            if (P2point==2)
-                P2res = "Thirty";
-            if (P2point==3)
-                P2res = "Forty";
-            
-            P1res = "Love";
-            score = P1res + "-" + P2res;
-        }
-		return score;
-	}
+    
 
 	private String normal(String score) {
-		int p1point2 = P1point;
-		if (p1point2 > 0 && P2point==0)
+		
+		if (P1point !=P2point)
         {
-           
-            
-            P2res = "Love";
-            score = getLiteral(p1point2) + "-" + P2res;
+            P2res = getLiteral(P2point);
+            P1res = getLiteral(P1point);	
+            score = P1res + "-" + P2res;
         }
 		return score;
 	}
 
 	private String getLiteral(int p1point2) {
+		String result="";
 		if (p1point2==0)
-		    P1res = "Love";
+			result = "Love";
 	
 		if (p1point2==1)
-		    P1res = "Fifteen";
+			result = "Fifteen";
 		if (p1point2==2)
-		    P1res = "Thirty";
+			result = "Thirty";
 		if (p1point2==3)
-		    P1res = "Forty";
-		return P1res;
+			result = "Forty";
+		return result;
 	}
 
 	private String tie(String score) {
