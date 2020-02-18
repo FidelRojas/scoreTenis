@@ -23,12 +23,16 @@ public class TennisGame2 implements TennisGame
 		if (isDuce())
 			score = "Deuce";
         
-		if (isAdvantage( player1Points,  palyer2points))
+		if (isInAdvantageOver( player1Points,  palyer2points))
             score = "Advantage player1";
         
-        if (isAdvantage( palyer2points,  player1Points))
+        if (isInAdvantageOver( palyer2points,  player1Points))
             score = "Advantage player2";
-        score = win(score);
+
+		if (isWinerOver(player1Points,  palyer2points))
+		    score = "Win for player1";
+		if (isWinerOver(palyer2points,player1Points))
+		    score = "Win for player2";
         return score;
     }
 
@@ -62,21 +66,15 @@ public class TennisGame2 implements TennisGame
 		return player1Points == palyer2points && player1Points < 4;
 	}
 
-	private String win(String score) {
-		if (player1Points>=4 && palyer2points>=0 && (player1Points-palyer2points)>=2)
-        {
-            score = "Win for player1";
-        }
-        if (palyer2points>=4 && player1Points>=0 && (palyer2points-player1Points)>=2)
-        {
-            score = "Win for player2";
-        }
-		return score;
+	
+
+	private boolean isWinerOver(int firstPlayerPoints, int secondPlayerPoints) {
+		return firstPlayerPoints>=4 && secondPlayerPoints>=0 && (firstPlayerPoints-secondPlayerPoints)>=2;
 	}
 
 
 
-	private boolean isAdvantage(int firstPlayerPoints, int secondPlayerPoints) {
+	private boolean isInAdvantageOver(int firstPlayerPoints, int secondPlayerPoints) {
 		return firstPlayerPoints > secondPlayerPoints && secondPlayerPoints >= 3;
 	}
 
